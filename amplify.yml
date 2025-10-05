@@ -4,17 +4,16 @@ applications:
       phases:
         preBuild:
           commands:
-            - cd ui
             - npm ci
         build:
           commands:
-            - env | grep -e API_URL -e NEXT_PUBLIC_
+            - env | grep -e API_URL -e NEXT_PUBLIC_ || true
             - npm run build
       artifacts:
-        baseDirectory: ui/out
+        baseDirectory: out
         files:
           - '**/*'
       cache:
         paths:
-          - ui/node_modules/**/*
+          - node_modules/**/*
     appRoot: ui
