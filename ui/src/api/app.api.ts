@@ -1,5 +1,19 @@
 import { client } from "./client";
 import type { HealthResponse, ABTestRequest, ABTestResponse } from "./types";
+import type { components } from "./schema";
+
+// Get Diet Plan
+export async function getDietPlanApi(data: components["schemas"]["UserDietRequest"]): Promise<components["schemas"]["DietPlanResponse"]> {
+  try {
+    const { data: result, error } = await client.POST("/food", { body: data });
+    if (error) throw error;
+    console.log(result);
+    return result as components["schemas"]["DietPlanResponse"];
+  } catch (err) {
+    console.error("Failed to get diet plan:", err);
+    throw err;
+  }
+}
 
 // Health check
 export async function getHealth(): Promise<HealthResponse> {
